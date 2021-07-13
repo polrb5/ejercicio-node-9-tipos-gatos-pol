@@ -28,4 +28,32 @@ router.get("/:idTipo", async (req, res, next) => {
   res.json(tipo);
 });
 
+router.put("/:idTipo", async (req, res, next) => {
+  const { idTipo } = req.params;
+  const tipoModificado = await Tipo.findByIdAndUpdate(idTipo);
+  if (!tipoModificado) {
+    const nuevoError = new Error(
+      `No se puede modificar este tipo de gato con la id: ${idTipo}`
+    );
+    nuevoError.codigo = 400;
+    return next(nuevoError);
+  }
+  console.log(tipoModificado);
+  res.json(tipoModificado);
+});
+
+router.delete("/:idTipo", async (req, res, next) => {
+  const { idTipo } = req.params;
+  const tipoBorrado = await Tipo.findByIdAndDelete(idTipo);
+  if (!tipoBorrado) {
+    const nuevoError = new Error(
+      `No se puede borrar este tipo de gato con la id: ${idTipo}`
+    );
+    nuevoError.codigo = 400;
+    return next(nuevoError);
+  }
+  console.log(tipoBorrado);
+  res.json(tipoBorrado);
+});
+
 module.exports = router;

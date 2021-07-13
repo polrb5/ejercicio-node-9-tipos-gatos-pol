@@ -10,4 +10,9 @@ const mostrarTipo = async (idTipo) => {
   return tipo;
 };
 
-module.exports = { listarTipos, mostrarTipo };
+const crearTipoNuevo = async (nuevoTipo) => {
+  const tipo = Tipo.create({ nombre: nuevoTipo });
+  return tipo;
+};
+
+module.exports = { listarTipos, mostrarTipo, crearTipoNuevo };
