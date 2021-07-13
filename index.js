@@ -1,2 +1,2 @@
 require("./db");
-require("./servidor/init");
+require("./servidor");
