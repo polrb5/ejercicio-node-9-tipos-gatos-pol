@@ -10,9 +10,27 @@ const mostrarTipo = async (idTipo) => {
   return tipo;
 };
 
+const modificarTipo = async (idTipo, tipoModificado) => {
+  const tipoAModificar = await Tipo.findByIdAndUpdate(idTipo, {
+    tipo: tipoModificado,
+  });
+  return tipoAModificar;
+};
+
 const crearTipoNuevo = async (nuevoTipo) => {
   const tipo = Tipo.create({ tipo: nuevoTipo });
   return tipo;
 };
 
-module.exports = { listarTipos, mostrarTipo, crearTipoNuevo };
+const borrarTipo = async (idTipo) => {
+  const tipoBorrado = await Tipo.findByIdAndDelete(idTipo);
+  return tipoBorrado;
+};
+
+module.exports = {
+  listarTipos,
+  mostrarTipo,
+  crearTipoNuevo,
+  borrarTipo,
+  modificarTipo,
+};

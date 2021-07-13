@@ -3,7 +3,7 @@ const Tipo = require("../../db/modelos/Tipo");
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/listado", async (req, res, next) => {
   const tipos = await Tipo.find();
   if (!tipos) {
     const nuevoError = new Error("No se han podido listar los tipos de gatos");
@@ -14,7 +14,7 @@ router.get("/", async (req, res, next) => {
   res.json(tipos);
 });
 
-router.get("/:idTipo", async (req, res, next) => {
+router.get("/tipo/:idTipo", async (req, res, next) => {
   const { idTipo } = req.params;
   const tipo = await Tipo.findById(idTipo);
   if (!tipo) {
@@ -28,7 +28,7 @@ router.get("/:idTipo", async (req, res, next) => {
   res.json(tipo);
 });
 
-router.put("/:idTipo", async (req, res, next) => {
+router.put("/tipo/:idTipo", async (req, res, next) => {
   const { idTipo } = req.params;
   const modificado = req.body;
   const tipoModificado = await Tipo.findByIdAndUpdate(idTipo, modificado);
@@ -43,7 +43,7 @@ router.put("/:idTipo", async (req, res, next) => {
   res.json(tipoModificado);
 });
 
-router.delete("/:idTipo", async (req, res, next) => {
+router.delete("/tipo/:idTipo", async (req, res, next) => {
   const { idTipo } = req.params;
   const tipoBorrado = await Tipo.findByIdAndDelete(idTipo);
   if (!tipoBorrado) {
@@ -55,6 +55,18 @@ router.delete("/:idTipo", async (req, res, next) => {
   }
   console.log(tipoBorrado);
   res.json(tipoBorrado);
+});
+
+router.post("/nuevo-tipo", (req, res, next) => {
+  const nuevoTipo = req.body;
+  Tipo.create(nuevoTipo);
+  if (!nuevoTipo.tipo) {
+    res
+      .status(400)
+      .json({ error: true, mensaje: "Faltan datos del tipo de gato" });
+    return;
+  }
+  res.status(201).json({ nuevoTipo: { tipo: nuevoTipo.tipo } });
 });
 
 module.exports = router;
