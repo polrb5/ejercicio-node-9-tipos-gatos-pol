@@ -30,7 +30,8 @@ router.get("/:idTipo", async (req, res, next) => {
 
 router.put("/:idTipo", async (req, res, next) => {
   const { idTipo } = req.params;
-  const tipoModificado = await Tipo.findByIdAndUpdate(idTipo);
+  const modificado = req.body;
+  const tipoModificado = await Tipo.findByIdAndUpdate(idTipo, modificado);
   if (!tipoModificado) {
     const nuevoError = new Error(
       `No se puede modificar este tipo de gato con la id: ${idTipo}`

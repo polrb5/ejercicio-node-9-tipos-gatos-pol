@@ -3,7 +3,7 @@ const express = require("express");
 const { errorServidor } = require("./errores");
 
 const app = express();
-const puerto = process.env.PUERTO || 4001;
+const puerto = process.env.PORT || 4001;
 
 const server = app.listen(puerto, (err) => {
   if (err) {

@@ -11,7 +11,7 @@ const mostrarTipo = async (idTipo) => {
 };
 
 const crearTipoNuevo = async (nuevoTipo) => {
-  const tipo = Tipo.create({ nombre: nuevoTipo });
+  const tipo = Tipo.create({ tipo: nuevoTipo });
   return tipo;
 };
 
