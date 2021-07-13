@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const TipoSchema = new Schema({
-  nombre: {
+  tipo: {
     type: String,
     required: true,
   },
@@ -9,6 +9,4 @@ const TipoSchema = new Schema({
 
 const Tipo = model("Tipo", TipoSchema, "tipos");
 
-module.exports = {
-  Tipo,
-};
+module.exports = Tipo;
