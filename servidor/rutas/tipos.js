@@ -57,16 +57,16 @@ router.delete("/tipo/:idTipo", async (req, res, next) => {
   res.json(tipoBorrado);
 });
 
-router.post("/nuevo-tipo", (req, res, next) => {
+router.post("/nuevo-tipo", async (req, res, next) => {
   const nuevoTipo = req.body;
-  Tipo.create(nuevoTipo);
+  const nuevoTipoCreado = await Tipo.create(nuevoTipo);
   if (!nuevoTipo.tipo) {
     res
       .status(400)
       .json({ error: true, mensaje: "Faltan datos del tipo de gato" });
     return;
   }
-  res.status(201).json({ nuevoTipo: { tipo: nuevoTipo.tipo } });
+  res.status(201).json({ nuevoTipo: { tipo: nuevoTipoCreado.tipo } });
 });
 
 module.exports = router;
